@@ -467,6 +467,7 @@ class RLE:
 
 class Huffman:
     def __init__ (self):
+        # Reference data for comparing.
         self.vli_test_y = [
                  10, 1, 2, 4, 8, 16, 32, 65,
                  128, 256, 1000, 1, 2, 4, 8, 16,
@@ -571,6 +572,7 @@ class Huffman:
                  2, 0, 0, 0, 0, 0, 0, 0,
                  ]
 
+    # Set data to send it in the required format.
     def concat_input(self, data1, data2, data3):
         self.data1 = data1
         self.data2 = data2
@@ -583,9 +585,12 @@ class Huffman:
             self.data.append(data)
         return(self.data)
 
+    # Reference module build to check the validity of the implemented module.
     def reference_module(self, runlength_block, size_block, amplitude_block):
         return(huffman_ref(runlength_block, size_block, amplitude_block))
 
+    # To output the data required for comparing it with the reference
+    # module.
     def set_data(self,data):
         self.data = data
         get_output = []
@@ -594,3 +599,15 @@ class Huffman:
             if(temp_data == 1):
                 get_output.append((data[i]%256))
         print(get_output)
+
+
+class BStuffer:
+    def __init__(self):
+        self.stuffer_in = [1,  2,  3,  4,255,  6,  7,  8,
+                      9,255, 11, 12, 13, 14,255, 16,
+                     17, 18, 19,255, 21, 22, 23, 24,
+                    255, 26, 27, 28, 29,255, 31, 32,
+                     33, 34, 255, 36, 37, 38, 39,255,
+                     41, 42, 43, 44,255, 46, 47, 48,
+                     49,255, 51, 52, 53, 54,255, 56,
+                     57, 58, 59,255, 61, 62, 63, 64]
