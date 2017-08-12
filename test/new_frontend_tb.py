@@ -21,23 +21,26 @@ class TB(Module):
 
         # Combining test bench with the Frontend module.
         self.comb += [
-            Record.connect(self.streamer.source, self.front.streamer.source, omit=["data"]),
-            self.front.streamer.source.data.eq(self.streamer.source.data),
+            Record.connect(self.streamer.source, self.front.streamer1.source, omit=["data"]),
+            self.front.streamer1.source.data.eq(self.streamer.source.data),
 
-            Record.connect(self.front.logger.sink, self.logger.sink, omit=["data"]),
-            self.logger.sink.data.eq(self.front.logger.sink.data)
+            Record.connect(self.front.logger3.sink, self.logger.sink, omit=["data"]),
+            self.logger.sink.data.eq(self.front.logger3.sink.data)
             ]
 
 
 def main_generator(dut):
 
     # convert image using rgb2ycbcr implementation
+    model = Quantizer()
     raw_image = RAWImage(rgb2ycbcr_coefs(8), "lena.png", 64)
     raw_image.pack_rgb()
     packet = Packet(raw_image.data)
+    print(packet)
     dut.streamer.send(packet)
     yield from dut.logger.receive()
     print(dut.logger.packet)
+    #model.setdata(dut.logger.packet)
 
 if __name__ == "__main__":
     tb = TB()
