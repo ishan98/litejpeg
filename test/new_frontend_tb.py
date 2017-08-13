@@ -15,17 +15,17 @@ from common import *
 class TB(Module):
     def __init__(self):
         # Making pipeline for getting Frontend module.
-        self.submodules.streamer = PacketStreamer(EndpointDescription([("data", 24)]))
+        self.submodules.streamer = PacketStreamer(EndpointDescription([("data", 8)]))
         self.submodules.front = frontendwrap()
-        self.submodules.logger = PacketLogger(EndpointDescription([("data", 24)]))
+        self.submodules.logger = PacketLogger(EndpointDescription([("data", 20)]))
 
         # Combining test bench with the Frontend module.
         self.comb += [
             Record.connect(self.streamer.source, self.front.streamer1.source, omit=["data"]),
             self.front.streamer1.source.data.eq(self.streamer.source.data),
 
-            Record.connect(self.front.logger3.sink, self.logger.sink, omit=["data"]),
-            self.logger.sink.data.eq(self.front.logger3.sink.data)
+            Record.connect(self.front.logger4.sink, self.logger.sink, omit=["data"]),
+            self.logger.sink.data.eq(self.front.logger4.sink.data)
             ]
 
 

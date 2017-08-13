@@ -104,7 +104,8 @@ class Entropycoder(PipelinedActor,Module):
 
 
         # Intialising the variables.
-
+        buffer_sel = Signal()
+        block_count = Signal(6)
         # Check wheather to start write or not.
         write_sel = Signal()
         # To swap the write select.
@@ -120,8 +121,9 @@ class Entropycoder(PipelinedActor,Module):
                 write_sel.eq(~write_sel)
             ),
             If(read_swap,
-                read_sel.eq(~read_sel)
-            )
+                read_sel.eq(~read_sel),
+                buffer_sel.eq(~buffer_sel),
+                block_count.eq(block_count+1))
         ]
 
         # write path
@@ -209,7 +211,7 @@ class Entropycoder(PipelinedActor,Module):
         read_fsm.act("GET_RESET",
             read_clear.eq(1),
             If(read_sel == write_sel,
-                read_swap.eq(1),
+                #read_swap.eq(1),
                 NextState("READ_OUTPUT")
             )
         )
@@ -224,11 +226,10 @@ class Entropycoder(PipelinedActor,Module):
         """
         read_fsm.act("READ_OUTPUT",
             source.valid.eq(1),
-            source.last.eq(read_count == 63),
+            source.last.eq(block_count == 63),
             If(source.ready,
-            	read_inc.eq(1),
-                If(source.last,
-                    NextState("GET_RESET")
-                )
-            )
-        )
+               If(read_count == 63,
+                  read_swap.eq(1),
+                  NextState("GET_RESET")
+                  ).Else(
+                  read_inc.eq(1))))
