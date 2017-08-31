@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="y">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>RGB2YCbCr Module &#8212; JPEG encoder documentation 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Qunatizer Module" href="dct2d.html" />
+    <link rel="prev" title="Welcome to JPEG encoder’s documentation!" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-litejpeg.core.csc">
+<span id="rgb2ycbcr-module"></span><h1>RGB2YCbCr Module<a class="headerlink" href="#module-litejpeg.core.csc" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="litejpeg.core.csc.RGB2YCbCr">
+<em class="property">class </em><code class="descclassname">litejpeg.core.csc.</code><code class="descname">RGB2YCbCr</code><span class="sig-paren">(</span><em>rgb_w=8</em>, <em>ycbcr_w=8</em>, <em>coef_w=8</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.csc.RGB2YCbCr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">litex.soc.interconnect.stream.PipelinedActor</span></code>, <code class="xref py py-class docutils literal"><span class="pre">litex.gen.fhdl.module.Module</span></code></p>
+<p>This will take the input in the form required for the RGB2YCbCr module and 
+recieve the output from the module and convert it in the required format.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="litejpeg.core.csc.RGB2YCbCrDatapath">
+<em class="property">class </em><code class="descclassname">litejpeg.core.csc.</code><code class="descname">RGB2YCbCrDatapath</code><span class="sig-paren">(</span><em>i</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.csc.RGB2YCbCrDatapath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#litejpeg.core.csc.RGB2YCbCrDatapath" title="litejpeg.core.csc.RGB2YCbCrDatapath"><code class="xref py py-class docutils literal"><span class="pre">litejpeg.core.csc.RGB2YCbCrDatapath</span></code></a></p>
+<p>This module will provide the datapath required for the RGB2YCbcr module.
+Since a number of different multiplication and addition operations are required for the purpose of 
+the conversion of the rgb into ycbcr hence are to be taken in the form of several stages.</p>
+<p>r : 8 bit number contains the red gradient of a particular pixel.
+g : 8 bit number contains the green gradient of a particular pixel.
+b : 8 bit number contains the blue gradient of a particular pixel.</p>
+<p>y, cb and cr : each an 8 bit number formed from the r,g and b component obtained as input.</p>
+<dl class="method">
+<dt id="litejpeg.core.csc.RGB2YCbCrDatapath.get_fragment">
+<code class="descname">get_fragment</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.csc.RGB2YCbCrDatapath.get_fragment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="litejpeg.core.csc.YCbCr2RGB">
+<em class="property">class </em><code class="descclassname">litejpeg.core.csc.</code><code class="descname">YCbCr2RGB</code><span class="sig-paren">(</span><em>ycbcr_w=8</em>, <em>rgb_w=8</em>, <em>coef_w=8</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.csc.YCbCr2RGB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">litex.soc.interconnect.stream.PipelinedActor</span></code>, <code class="xref py py-class docutils literal"><span class="pre">litex.gen.fhdl.module.Module</span></code></p>
+<p>This will take the input in the form required for the YCbCr2RGB module and 
+recieve the output from the module and convert it in the required format.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="litejpeg.core.csc.YCbCr2RGBDatapath">
+<em class="property">class </em><code class="descclassname">litejpeg.core.csc.</code><code class="descname">YCbCr2RGBDatapath</code><span class="sig-paren">(</span><em>i</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.csc.YCbCr2RGBDatapath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#litejpeg.core.csc.YCbCr2RGBDatapath" title="litejpeg.core.csc.YCbCr2RGBDatapath"><code class="xref py py-class docutils literal"><span class="pre">litejpeg.core.csc.YCbCr2RGBDatapath</span></code></a></p>
+<p>This module will provide the datapath required for the YCbCr2RGB module.
+Since a number of different multiplication and addition operations are required for the purpose of 
+the conversion of the ycbcr into rgb hence are to be taken in the form of several stages.</p>
+<p>y : 8 bit number contains the red gradient of a particular pixel.
+cb : 8 bit number contains the green gradient of a particular pixel.
+cr : 8 bit number contains the blue gradient of a particular pixel.</p>
+<p>r, g and b : each an 8 bit number formed from the r,g and b component obtained as input.</p>
+<dl class="method">
+<dt id="litejpeg.core.csc.YCbCr2RGBDatapath.get_fragment">
+<code class="descname">get_fragment</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.csc.YCbCr2RGBDatapath.get_fragment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="litejpeg.core.csc.rgb2ycbcr_coefs">
+<code class="descclassname">litejpeg.core.csc.</code><code class="descname">rgb2ycbcr_coefs</code><span class="sig-paren">(</span><em>dw</em>, <em>cw=None</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.csc.rgb2ycbcr_coefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="litejpeg.core.csc.ycbcr2rgb_coefs">
+<code class="descclassname">litejpeg.core.csc.</code><code class="descname">ycbcr2rgb_coefs</code><span class="sig-paren">(</span><em>dw</em>, <em>cw=None</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.csc.ycbcr2rgb_coefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to JPEG encoder&#8217;s documentation!</a></li>
+      <li>Next: <a href="dct2d.html" title="next chapter">Qunatizer Module</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/subblocks/rgb2ycbcr.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Ishan Bansal.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/subblocks/rgb2ycbcr.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

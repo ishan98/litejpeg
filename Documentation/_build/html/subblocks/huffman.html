@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="y">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Huffman Module &#8212; JPEG encoder documentation 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ByteStuffer Module" href="bytestuffer.html" />
+    <link rel="prev" title="RLE Module" href="rle.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-litejpeg.core.huffman.huffmancore">
+<span id="huffman-module"></span><h1>Huffman Module<a class="headerlink" href="#module-litejpeg.core.huffman.huffmancore" title="Permalink to this headline">¶</a></h1>
+<p>HuffmanEncoder Module
+This contains the top module for the Huffman Encoder</p>
+<dl class="class">
+<dt id="litejpeg.core.huffman.huffmancore.HuffmanDatapath">
+<em class="property">class </em><code class="descclassname">litejpeg.core.huffman.huffmancore.</code><code class="descname">HuffmanDatapath</code><span class="sig-paren">(</span><em>i</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.huffman.huffmancore.HuffmanDatapath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#litejpeg.core.huffman.huffmancore.HuffmanDatapath" title="litejpeg.core.huffman.huffmancore.HuffmanDatapath"><code class="xref py py-class docutils literal"><span class="pre">litejpeg.core.huffman.huffmancore.HuffmanDatapath</span></code></a></p>
+<p>This gives the datapath for the serialization of the input data.
+The data coming to the module is been controlled by using
+ready_data_write and ready_data_read, as when the module is ready
+then the input ready_data_write will be 1 and when the data to the
+output is ready then ready_data_read is 1.</p>
+<dl class="docutils">
+<dt>Amplitude <span class="classifier-delimiter">:</span> <span class="classifier">12 bits</span></dt>
+<dd>Non-zero amplitudes in the matrix.</dd>
+<dt>Size <span class="classifier-delimiter">:</span> <span class="classifier">4 bits</span></dt>
+<dd>Number of bits required to store the amplitude.</dd>
+<dt>Runlength <span class="classifier-delimiter">:</span> <span class="classifier">4 bits</span></dt>
+<dd>Number of zeros before the non-zero amplitude.</dd>
+<dt>word_count: 6 bits</dt>
+<dd>Display the index of the matrix.</dd>
+<dt>source <span class="classifier-delimiter">:</span> <span class="classifier">8 bits</span></dt>
+<dd>Output of the serial data coming out.</dd>
+</dl>
+<dl class="method">
+<dt id="litejpeg.core.huffman.huffmancore.HuffmanDatapath.get_fragment">
+<code class="descname">get_fragment</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.huffman.huffmancore.HuffmanDatapath.get_fragment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="litejpeg.core.huffman.huffmancore.HuffmanEncoder">
+<em class="property">class </em><code class="descclassname">litejpeg.core.huffman.huffmancore.</code><code class="descname">HuffmanEncoder</code><a class="headerlink" href="#litejpeg.core.huffman.huffmancore.HuffmanEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">litex.soc.interconnect.stream.PipelinedActor</span></code>, <code class="xref py py-class docutils literal"><span class="pre">litex.gen.fhdl.module.Module</span></code></p>
+<p>This Module defines the main module for getting the input and output to the
+HuffmanDatapath from the other module.
+The input is been taken from the &#8216;sink&#8217; with the Endstream of length 20 bits
+and the output is been sent by using &#8216;source&#8217; with 9 bits.
+The input and the output are been synchronized by using the ready_data_read
+and ready_data_write.</p>
+</dd></dl>
+
+<span class="target" id="module-litejpeg.core.huffman.tablebuilder"></span><p>Used to build Huffman Tables</p>
+<dl class="function">
+<dt id="litejpeg.core.huffman.tablebuilder.build_huffman_rom_tables">
+<code class="descclassname">litejpeg.core.huffman.tablebuilder.</code><code class="descname">build_huffman_rom_tables</code><span class="sig-paren">(</span><em>csvfile</em><span class="sig-paren">)</span><a class="headerlink" href="#litejpeg.core.huffman.tablebuilder.build_huffman_rom_tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>build huffman tables</p>
+</dd></dl>
+
+<span class="target" id="module-litejpeg.core.huffman.ac_rom"></span><dl class="class">
+<dt id="litejpeg.core.huffman.ac_rom.ac_rom_core">
+<em class="property">class </em><code class="descclassname">litejpeg.core.huffman.ac_rom.</code><code class="descname">ac_rom_core</code><a class="headerlink" href="#litejpeg.core.huffman.ac_rom.ac_rom_core" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">litex.gen.fhdl.module.Module</span></code></p>
+</dd></dl>
+
+<span class="target" id="module-litejpeg.core.huffman.dc_rom"></span><dl class="class">
+<dt id="litejpeg.core.huffman.dc_rom.dc_rom_core">
+<em class="property">class </em><code class="descclassname">litejpeg.core.huffman.dc_rom.</code><code class="descname">dc_rom_core</code><a class="headerlink" href="#litejpeg.core.huffman.dc_rom.dc_rom_core" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">litex.gen.fhdl.module.Module</span></code></p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="rle.html" title="previous chapter">RLE Module</a></li>
+      <li>Next: <a href="bytestuffer.html" title="next chapter">ByteStuffer Module</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/subblocks/huffman.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Ishan Bansal.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/subblocks/huffman.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
