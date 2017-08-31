@@ -35,6 +35,19 @@ Submodules:
    Huffman<subblocks/huffman.rst>
    ByteStuffer<subblocks/bytestuffer.rst>
 
+Test Files:
+
+.. toctree::
+   :maxdepth: 2
+   
+   RGB2YCbCr Test<subblocks/rgb2ycbcr_test.rst>
+   DCT2D Test<subblocks/dct2d_test.rst>
+   Quantizer Test<subblocks/quantizer_test.rst>
+   Zigzag Test<subblocks/zigzag_test.rst>
+   RLE Test<subblocks/rle_test.rst>
+   Huffman Test<subblocks/huffman_test.rst>
+   ByteStuffer Test<subblocks/bytestuffer_test.rst>
+
 
    
 

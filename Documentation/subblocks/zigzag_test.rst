@@ -1,22 +1,16 @@
 RLE Module
 ================
 
-RLE Main
---------
 .. automodule:: litejpeg.core.rle.rlemain
     :members:
     :undoc-members:
     :show-inheritance:
 
-RLE Core
---------
 .. automodule:: litejpeg.core.rle.rlecore
     :members:
     :undoc-members:
     :show-inheritance:
 
-Entropycoder
-------------
 .. automodule:: litejpeg.core.rle.entropycoder
     :members:
     :undoc-members:
